@@ -1,0 +1,17 @@
+<div class="raw">
+  <div class="media">
+    <aside class="media-left">
+      <img class="mr-2 rounded" src="<%= gravatar_url(@user, { size: 100 }) %>" alt="">
+      <h4 class="text-center"><%= @user.name %></h4>
+    </aside>
+    <div class="media-body">
+      <%= @user.profile %>
+    </div>
+  </div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a href="#" class="nav-link active">投稿レシピ</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">フォロー</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">お気に入り</a></li>
+  </ul>
+</div>
