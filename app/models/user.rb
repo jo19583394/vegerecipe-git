@@ -5,5 +5,8 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
   validates :profile, length: {maximum: 255}
+  
+  has_many :recipes, dependent: :destroy
+  
   has_secure_password
 end

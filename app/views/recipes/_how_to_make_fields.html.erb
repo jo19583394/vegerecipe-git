@@ -1,11 +1,9 @@
 <div class="nested-fields">
-  <ol>
-    <li class="row">
-      <div class="col-5"><%= f.text_area :explanation, class: "form-control", placeholder: "説明" %></div>
-      <div><%= f.file_field :image %></div>
-      <div class="col-1 px-0 w-auto">
-        <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
-      </div>
-    </li>
-  </ol>
+  <div class="row">
+    <div class="col-5"><%= f.text_area :explanation, class: "form-control", placeholder: "説明" %></div>
+    <div><%= f.file_field :process_image %></div>
+    <div class="col-1 px-0 w-auto">
+      <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,14 @@
+<h3>「<%= params[:keyword] %>」に関するレシピ</h3>
+
+<div class="container">
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <div class="recipe_thumb col-md-4">
+        <%= image_tag recipe.image.url, class: "col-md-10" %>
+        <div class="col-md-10"><%= link_to recipe.title, "/recipes/#{recipe.id}" %></div>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @recipes %>
+</div>
+

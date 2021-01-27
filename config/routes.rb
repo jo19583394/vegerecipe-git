@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   get "signup", to: "users#new"
   resources :users
   
-  resources :recipes
+  resources :recipes do
+    collection do
+      get 'search'
+    end
+  end
 end

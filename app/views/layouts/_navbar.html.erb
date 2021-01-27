@@ -28,10 +28,12 @@
           <li class="nav-item"><%= link_to "ログイン", login_path, class: "nav-link" %></li>
         <% end %>
         <li class="nav-item">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="レシピ検索" aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
+          <%= form_with(url: search_recipes_path, method: :get, local: true) do |f| %>
+            <div class="form-group d-flex">
+              <%= f.text_field :keyword, placeholder: "レシピ検索", class: "form-control" %>
+              <%= f.submit "Search" , class: "btn btn-outline-light" %>
+            </div>
+          <% end %>
         </li>
       </ul>
     </div>

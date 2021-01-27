@@ -1,5 +1,6 @@
 <div class="recipe-post">
   <%= form_with(model: @recipe, local: true) do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
     <div class="form-group mt-5">
       <div class="row">
         <div class="d-flex align-items-center"><%= f.label :title, "レシピ名" %></div>
@@ -44,17 +45,7 @@
       </div>
     </div>
     
-    <h4 class="mt-5">作り方</h3>
-    
-    <select name="cook-time" id="cook-time">
-      <option value="">調理時間</option>
-      <option value="10min">10分以内</option>
-      <option value="20min">20分以内</option>
-      <option value="30min">30分以内</option>
-      <option value="45min">45分以内</option>
-      <option value="1hour">1時間以内</option>
-      <option value="2hour">2時間以内</option>
-    </select>
+    <h4 class="mt-5">作り方</h4>
     
     <div class="form-group mt-2">
       <%= f.fields_for :how_to_makes do |k| %>

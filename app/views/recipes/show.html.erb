@@ -1,2 +1,33 @@
-<h1>Recipes#show</h1>
-<p>Find me in app/views/recipes/show.html.erb</p>
+<div class="recipe_detail">
+  <h3><%= @recipe.title %></h3>
+  <div class="row">
+    <div class="col-md-5 recipe_content1">
+      <%= image_tag @recipe.image.url, class: "recipe_image" %>
+    </div>
+    <div class="offset-md-1 col-md-6 recipe_content2">
+      <h4>ポイント</h4>
+      <div class="catchcopy"><%= @recipe.catchcopy %></div>
+      <h4 class="no_of_dish">材料(<%= @recipe.no_of_dish %>)</h4>
+      <table class="table ingredients">
+        <% @recipe_ingredients.each do |ingredient| %>
+          <tr>
+            <td><%= ingredient.ing_name %></td>
+            <td class="text-right"><%= ingredient.quantity %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  
+  <h4>作り方</h4>
+  <div>
+    <% @how_to_makes.each do |process| %>
+      <ol>
+        <li>
+          <%= image_tag process.process_image.url if process.process_image? %>
+          <%= process.explanation %>
+        </li>
+      </ol>
+    <% end %>
+  </div>
+</div>

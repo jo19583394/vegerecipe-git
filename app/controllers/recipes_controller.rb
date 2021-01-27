@@ -5,6 +5,9 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @recipe = Recipe.find(params[:id])
+    @recipe_ingredients = @recipe.recipe_ingredients.all
+    @how_to_makes = @recipe.how_to_makes.all
   end
 
   def new
@@ -14,10 +17,12 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.new(recipe_params_ingredient)
+    @recipe = Recipe.new(recipe_params)
     if @recipe.save
-      redirect_to root_path
+      flash[:success] = 'レシピを投稿しました。'
+      redirect_to root_url
     else
+      flash.now[:danger] = 'レシピの投稿に失敗しました。'
       render :new
     end
   end
@@ -31,11 +36,15 @@ class RecipesController < ApplicationController
   def destroy
   end
   
+  def search
+    @recipes = Recipe.search(params[:keyword]).page(params[:page]).per(30)
+  end
+  
   private
   
-  def recipe_params_ingredient
+  def recipe_params
     params.require(:recipe).permit(:title, :catchcopy, :no_of_dish, :image, 
                                   recipe_ingredients_attributes:[:id, :recipe_id, :ing_name, :quantity, :_destroy],
-                                  how_to_makes_attributes:[:explanation, :process_image, :order_no, :_destroy])
+                                  how_to_makes_attributes:[:id, :explanation, :process_image, :order_no, :_destroy])
   end
 end

@@ -14,3 +14,7 @@
  *= require_self
  *= require font-awesome
  */
+
+.recipe_image{
+  width: 100%;
+}
