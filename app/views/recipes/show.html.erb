@@ -24,6 +24,7 @@
     <% @how_to_makes.each do |process| %>
       <ol>
         <li>
+          <img src="/<%= process.process_image %>" if process.process_image?>
           <%= image_tag process.process_image.url if process.process_image? %>
           <%= process.explanation %>
         </li>
