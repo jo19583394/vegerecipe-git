@@ -1,17 +1,19 @@
 <div class="raw">
   <div class="media">
     <aside class="media-left">
-      <img class="mr-2 rounded" src="<%= gravatar_url(@user, { size: 150 }) %>" alt="">
-      <h4 class="text-center"><%= @user.name %></h4>
+      <%= image_tag @user.profile_image.url, size: "150x150", class: "rounded-circle" %>
+      <h4 class="text-center mt-2"><%= @user.name %></h4>
       <%= render 'relationships/follow_button', user: @user %>
+      <% if current_user == @user %>
+        <%= link_to "編集", edit_user_path(@user), class: 'btn btn-light btn-block' %>
+      <% end %>  
     </aside>
-    <div class="media-body">
+    <div class="media-body col-md-6 ml-5 mt-3">
       <%= @user.profile %>
     </div>
-    
   </div>
   
-  <ul class="nav nav-tabs nav-justified mb-3">
+  <ul class="nav nav-tabs nav-justified my-3">
     <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">投稿レシピ <span class="badge badge-secondary"><%= @count_recipes %></span></a></li>
     <li class="nav-item"><a href="<%= followings_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followings_user_path(@user)) %>">フォロー <span class="badge badge-secondary"><%= @count_followings %></span></a></li>
     <li class="nav-item"><a href="<%= followers_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followers_user_path(@user)) %>">フォロワー <span class="badge badge-secondary"><%= @count_followers %></span></a></li>

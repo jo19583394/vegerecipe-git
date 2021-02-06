@@ -8,7 +8,7 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :how_to_makes, allow_destroy: true
   
   mount_uploader :image, ImageUploader
-  mount_uploader :process_image, ProcessImageUploader
+  
   
   def self.search(search)
     if search

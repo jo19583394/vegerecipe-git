@@ -18,6 +18,12 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    upload_file = recipe_params[:process_image]
+    output_path = Rails.root.join('public/uploads/recipe/process_image', upload_file.original_filename)
+    File.open(output_path, 'w+b') do |fp|
+      fp.write upload_file.read
+    end
+    
     if @recipe.save
       flash[:success] = 'レシピを投稿しました。'
       redirect_to root_url

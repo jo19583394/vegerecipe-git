@@ -1,2 +1,47 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="text-center">
+  <h1>プロフィールの編集</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div class="profile_image_edit">
+        <p>プロフィール画像</p>
+        <%= f.file_field :profile_image %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :name, '名前' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :profile, 'プロフィール' %>
+        <%= f.text_area :profile, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      
+      <div class="mt-5">
+        <%= f.label :password, '※パスワードを変更するかたはこちら' %>
+        <div class="password_edit">
+          <div class="form-group">
+            新しいパスワード<br>
+            <%= f.password_field :password, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            新しいパスワードを再入力<br>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+
+      <%= f.submit 'プロフィールを更新！', class: 'btn btn-primary btn-block' %>
+    <% end %>
+
+  </div>
+</div>
