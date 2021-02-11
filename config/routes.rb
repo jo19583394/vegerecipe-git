@@ -12,10 +12,10 @@ Rails.application.routes.draw do
       get 'followers'
       get 'favorites'
     end
-    resources :favorites, only: [:create, :destroy]
   end
   
   resources :recipes do
+    resources :favorites, only: [:create, :destroy]
     collection do
       get 'search'
     end

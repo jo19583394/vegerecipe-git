@@ -9,7 +9,7 @@
       <% end %>  
     </aside>
     <div class="media-body col-md-6 ml-5 mt-3">
-      <%= @user.profile %>
+      <%= safe_join(@user.profile.split("\n"),tag(:br)) %>
     </div>
   </div>
   
@@ -20,5 +20,5 @@
     <li class="nav-item"><a href="<%= favorites_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(favorites_user_path(@user)) %>">お気に入り <span class="badge badge-secondary"><%= @count_favorites %></span></a></li>
   </ul>
   
-  <%= render 'recipes/recipes', recipes: @recipes %>
+  <%= render partial: 'recipes', locals: {recipes: @recipes} %>
 </div>

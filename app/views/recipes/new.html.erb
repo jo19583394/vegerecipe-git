@@ -48,7 +48,7 @@
     <h4 class="mt-5">作り方</h4>
     
     <div class="form-group mt-2">
-      <%= f.fields_for :how_to_makes do |k| %>
+      <%= f.fields_for :how_to_makes, :html => { multipart: true } do |k| %>
         <%= render "recipes/how_to_make_fields", f: k %>
       <% end %>
     </div>

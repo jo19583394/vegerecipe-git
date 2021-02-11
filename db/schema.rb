@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_04_130559) do
+ActiveRecord::Schema.define(version: 2021_02_09_225337) do
 
   create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2021_02_04_130559) do
     t.bigint "recipe_id"
     t.text "explanation"
     t.binary "process_image"
-    t.integer "order_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_how_to_makes_on_recipe_id"

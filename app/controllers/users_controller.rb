@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show, :edit, :followings, :followers, :favorites]
   
   def index
-    @users = User.order(id: :desc).page(params[:page]).per(10)
+    @users = User.order(id: :desc).page(params[:page])
   end
 
   def show
     @user = User.find(params[:id])
-    @recipes = @user.recipes.order(id: :desc).page(params[:page])
     counts(@user)
+    @recipes = @user.recipes.all
   end
 
   def new
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   
   def favorites
     @user = User.find(params[:id])
-    favorites = Favorite.where(user_id: @user.id).page(params[:page]).pluck(:recipe_id)
+    favorites = Favorite.where(user_id: @user.id).pluck(:recipe_id)
     @favorites = Recipe.find(favorites)
     counts(@user)
   end

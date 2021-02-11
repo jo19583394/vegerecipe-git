@@ -2,6 +2,7 @@ class RecipesController < ApplicationController
   before_action :require_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
   
   def index
+    @recipes = Recipe.order(id: :desc).page(params[:page])
   end
 
   def show
@@ -18,11 +19,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    upload_file = recipe_params[:process_image]
-    output_path = Rails.root.join('public/uploads/recipe/process_image', upload_file.original_filename)
-    File.open(output_path, 'w+b') do |fp|
-      fp.write upload_file.read
-    end
+    @recipe.user_id = current_user.id
     
     if @recipe.save
       flash[:success] = 'レシピを投稿しました。'
@@ -34,12 +31,35 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
+    unless @recipe.user == current_user
+      redirect_to @recipe
+    end
   end
 
   def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.user != current_user
+      redirect_to @recipe
+    else
+      if @recipe.update(recipe_params)
+        flash[:success] = "レシピを編集しました。"
+        redirect_to @recipe
+      else
+        flash.now[:danger] = "レシピ編集に失敗しました。"
+        render :edit
+      end
+    end
   end
 
   def destroy
+    @recipe = Recipe.find(params[:id])
+    if @recipe.destroy
+      flash[:success] = "レシピを削除しました。"
+      redirect_to user_path(@recipe.user)
+    else
+      flash.now[:danger] = "レシピ削除に失敗しました。"
+    end
   end
   
   def search
@@ -51,6 +71,6 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:title, :catchcopy, :no_of_dish, :image, 
                                   recipe_ingredients_attributes:[:id, :recipe_id, :ing_name, :quantity, :_destroy],
-                                  how_to_makes_attributes:[:id, :explanation, :process_image, :order_no, :_destroy])
+                                  how_to_makes_attributes:[:id, :explanation, {process_image: []}, :_destroy])
   end
 end

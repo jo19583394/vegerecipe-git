@@ -1,33 +1,45 @@
-<div class="recipe_detail">
-  <h3><%= @recipe.title %></h3>
-  <div class="row">
-    <div class="col-md-5 recipe_content1">
-      <%= image_tag @recipe.image.url, class: "recipe_image" %>
-    </div>
-    <div class="offset-md-1 col-md-6 recipe_content2">
-      <h4>ポイント</h4>
-      <div class="catchcopy"><%= @recipe.catchcopy %></div>
-      <h4 class="no_of_dish">材料(<%= @recipe.no_of_dish %>)</h4>
-      <table class="table ingredients">
-        <% @recipe_ingredients.each do |ingredient| %>
-          <tr>
-            <td><%= ingredient.ing_name %></td>
-            <td class="text-right"><%= ingredient.quantity %></td>
-          </tr>
+  <div class="recipe_detail">
+    <h3><%= @recipe.title %></h3>
+    <div class="row">
+      <div class="col-md-5 recipe_content1">
+        <%= image_tag @recipe.image.url, class: "recipe_image" %>
+        <div class="d-inline-block" id="favorite_<%= @recipe.id %>">
+          <%= render partial: 'favorites/favorite_button', locals: {recipe: @recipe} %>
+          <%= link_to @recipe.user.name, user_path(@recipe.user) %>
+        </div>
+        <% if current_user == @recipe.user %>
+          <div class="d-inline-block">
+            <%= link_to "編集", edit_recipe_path(@recipe) %>
+            <%= link_to "削除", recipe_path(@recipe), method: :delete, data: {confirm: "削除してもよろしいですか？"} %>
+          </div>
         <% end %>
-      </table>
+      </div>
+    
+      <div class="offset-md-1 col-md-6 recipe_content2">
+        <h4>ポイント</h4>
+        <div class="catchcopy"><%= safe_join(@recipe.catchcopy.split("\n"),tag(:br)) %></div>
+        <h4 class="no_of_dish mt-4">材料(<%= @recipe.no_of_dish %>)</h4>
+        <table class="table ingredients">
+          <% @recipe_ingredients.each do |ingredient| %>
+            <tr>
+              <td><%= ingredient.ing_name %></td>
+              <td class="text-right"><%= ingredient.quantity %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+    
+
+    <h4 class="mt-5">作り方</h4>
+    <div>
+      <ol>
+        <% @how_to_makes.each do |process| %>
+          <li>
+            <%= image_tag process.process_image.url if process.process_image? %>
+            <%= safe_join(process.explanation.split("\n"),tag(:br)) %>
+          </li>
+        <% end %>
+      </ol>
     </div>
   </div>
-  
-  <h4>作り方</h4>
-  <div>
-    <ol>
-      <% @how_to_makes.each do |process| %>
-        <li>
-          <%= image_tag process.process_image.url if process.process_image? %>
-          <%= process.explanation %>
-        </li>
-      <% end %>
-    </ol>
-  </div>
-</div>

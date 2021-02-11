@@ -1,9 +1,33 @@
 <div class="content">
-  <div class="new-recipes">
+  <div class="new-recipes mb-5">
     <h3>新着レシピ</h3>
   </div>
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <div class="col-md-3">
+        <div class="recipe_image">
+          <%= image_tag recipe.image.url, size: "200x200" %>
+        </div>
+        <div class="recipe_title">
+          <%= link_to recipe.title, recipe_path(recipe) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
   
-  <div class="fav-recipes">
+  <div class="fav-recipes my-5">
     <h3>人気レシピ</h3>
+  </div>
+  <div class="row">
+    <% @recipe_ranks.each do |rank| %>
+      <div class="col-md-3">
+        <div class="recipe_image">
+          <%= image_tag rank.image.url, size: "200x200" %>
+        </div>
+        <div class="recipe_title">
+          <%= link_to rank.title, recipe_path(rank) %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
