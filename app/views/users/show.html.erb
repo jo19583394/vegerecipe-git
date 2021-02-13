@@ -9,7 +9,7 @@
       <% end %>  
     </aside>
     <div class="media-body col-md-6 ml-5 mt-3">
-      <%= safe_join(@user.profile.split("\n"),tag(:br)) %>
+      <%= safe_join(@user.profile.split("\n"),tag(:br)) if @user.profile? %>
     </div>
   </div>
   
