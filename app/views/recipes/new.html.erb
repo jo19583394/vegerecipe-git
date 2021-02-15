@@ -1,14 +1,13 @@
-<div class="recipe-post">
+<div class="recipe-post container col-md-10 mx-auto">
   <%= form_with(model: @recipe, local: true) do |f| %>
     <%= render 'layouts/error_messages', model: f.object %>
-    <div class="form-group mt-5">
-      <div class="row">
-        <div class="d-flex align-items-center"><%= f.label :title, "レシピ名" %></div>
-        <div class="col-md-8"><%= f.text_field :title, class: "form-control" %></div>
-      </div>
+    <div class="mt-5">
+      <h5 class="d-flex align-items-center font-weight-bold"><%= f.label :title, "レシピ名" %></h5>
+      <div><%= f.text_field :title, class: "form-control" %></div>
     </div>
     
-    <div class="form-group mt-3">
+    <div class="mt-4">
+      <h5 class="d-flex align-items-center font-weight-bold"><%= f.label :image, "料理の画像" %></h5>
       <div class="row">
         <div class="col-md-4 d-flex align-items-center">
           <%= f.file_field :image %>
@@ -19,15 +18,16 @@
       </div>
     </div>
     
-    <div class="form-group mt-4">
-      <div class="row">
-        <div class="d-flex align-items-center"><%= f.label :no_of_dish, "何人分" %></div>
-        <div class="col-md-2"><%= f.text_field :no_of_dish, class: "form-control", :placeholder => "何人分"%></div>
-      </div>
+
+    <div class="row mt-4">
+      <h5 class="d-flex align-items-center font-weight-bold col-md-1"><%= f.label :no_of_dish, "人数" %></h5>
+      <%= f.text_field :no_of_dish, class: "form-control col-md-2", :placeholder => "何人分"%>
     </div>
     
-    <div class="recipe-ingredients">
-      <div class="mx-auto">
+    
+    <div class="recipe-ingredients mt-4">
+      <h5 class="d-flex align-items-center font-weight-bold"><%= f.label :recipe_ingredients, "材料・分量" %></h5>
+      <div class="col-md-12">
         <%= f.fields_for :recipe_ingredients do |t| %>
           <%= render "recipes/recipe_ingredient_fields", f: t %>
         <% end %>
@@ -35,19 +35,19 @@
       
       <div id="detail-association-insertion-point"></div>
       
-      <div class="col-10 mx-auto mt-2">
+      <div class="mt-2">
         <%= link_to_add_association "+フォームを追加", f, :recipe_ingredients,
-        class: "btn btn-secondary btn-block",
+        class: "btn btn-outline-primary btn-block",
         data: {
         association_insertion_node: '#detail-association-insertion-point',
-        association_insertion_method: 'after'
+        association_insertion_method: 'before'
         }%>
       </div>
     </div>
     
-    <h4 class="mt-5">作り方</h4>
+    <h5 class="mt-5 font-weight-bold">作り方</h5>
     
-    <div class="form-group mt-2">
+    <div class="mt-2">
       <%= f.fields_for :how_to_makes, :html => { multipart: true } do |k| %>
         <%= render "recipes/how_to_make_fields", f: k %>
       <% end %>
@@ -56,16 +56,16 @@
     <div id="detail-association-insertion-point2"></div>
     
     
-    <div class="col-10 mx-auto">
+    <div class="mt-2">
       <%= link_to_add_association "+フォームを追加", f, :how_to_makes,
-      class: "btn btn-secondary btn-block",
+      class: "btn btn-outline-primary btn-block",
       data: {
       association_insertion_node: '#detail-association-insertion-point2',
-      association_insertion_method: 'after'
+      association_insertion_method: 'before'
       }%>
     </div>
-    <div class="col-10 mx-auto">
-      <%= f.submit 'レシピ投稿！', class: 'mt-2 btn btn-secondary btn-block' %>
+    <div class="mt-2 mb-5">
+      <%= f.submit 'レシピ投稿！', class: 'mt-2 btn btn-primary btn-block' %>
     </div>
   <% end %>
 </div>

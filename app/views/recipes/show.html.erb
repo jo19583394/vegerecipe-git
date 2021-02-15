@@ -1,10 +1,20 @@
-<div class="recipe_detail">
-  <h3><%= @recipe.title %></h3>
+<div class="recipe_detail container">
+  <h3 class="font-weight-bold"><%= @recipe.title %></h3>
   <div class="row">
     <div class="col-md-5 recipe_content1">
       <%= image_tag @recipe.image.url, class: "recipe_image" %>
       <div class="d-inline-block" id="favorite_<%= @recipe.id %>">
-        <%= render partial: 'favorites/favorite_button', locals: {recipe: @recipe} %>
+        <% if logged_in? %>
+          <%= render partial: 'favorites/favorite_button', locals: {recipe: @recipe} %>
+        <% else %>
+          <% if @recipe.favorites.count == 0 %>
+            <i class="far fa-star"></i>
+            <span class="star-count"><%= @recipe.favorites.count %></span>
+          <% else %>
+            <i class="fas fa-star"></i>
+            <span class="star-count"><%= @recipe.favorites.count %></span>
+          <% end %>
+        <% end %>
         <%= link_to @recipe.user.name, user_path(@recipe.user) %>
       </div>
       <% if current_user == @recipe.user %>
@@ -16,10 +26,10 @@
     </div>
   
     <div class="offset-md-1 col-md-6 recipe_content2">
-      <h4>ポイント</h4>
-      <div class="catchcopy"><%= safe_join(@recipe.catchcopy.split("\n"),tag(:br)) if @recipe.catchcopy? %></div>
-      <h4 class="no_of_dish mt-4">材料(<%= @recipe.no_of_dish %>)</h4>
-      <table class="table ingredients">
+      <h4 class="font-weight-bold">ポイント</h4>
+      <%= safe_join(@recipe.catchcopy.split("\n"),tag(:br)) if @recipe.catchcopy? %>
+      <h4 class="font-weight-bold mt-4">材料(<%= @recipe.no_of_dish %>)</h4>
+      <table class="table">
         <% @recipe_ingredients.each do |ingredient| %>
           <tr>
             <td><%= ingredient.ing_name %></td>
@@ -31,7 +41,7 @@
   </div>
     
 
-  <h4 class="mt-5">作り方</h4>
+  <h4 class="font-weight-bold mt-5">作り方</h4>
   <div>
     <ol>
       <% @how_to_makes.each do |process| %>

@@ -1,15 +1,9 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-success">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">VEGERECIPE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand font-weight-bold" href="/">VEGERECIPE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <style>
-      .d-flex .form-control {
-        margin-left: 30px;
-        margin-right: 10px;
-      }
-    </style>
     
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
       <ul class="navbar-nav">
@@ -27,14 +21,6 @@
           <li class="nav-item"><%= link_to "新規登録", signup_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "ログイン", login_path, class: "nav-link" %></li>
         <% end %>
-        <li class="nav-item">
-          <%= form_with(url: search_recipes_path, method: :get, local: true) do |f| %>
-            <div class="form-group d-flex">
-              <%= f.text_field :keyword, placeholder: "レシピ検索", class: "form-control" %>
-              <%= f.submit "Search" , class: "btn btn-outline-light" %>
-            </div>
-          <% end %>
-        </li>
       </ul>
     </div>
   </div>

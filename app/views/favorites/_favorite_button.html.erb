@@ -2,10 +2,10 @@
   <%= link_to recipe_favorites_path(recipe), method: :post, remote: true do %>
     <i class="far fa-star"></i>
   <% end %>
-  <span class="star-count1"><%= recipe.favorites.count %></span>
+  <span class="star-count"><%= recipe.favorites.count %></span>
 <% else %>
   <%= link_to recipe_favorite_path(recipe), method: :delete, remote: true do %>
     <i class="fas fa-star"></i>
   <% end %>
-  <span class="star-count2"><%= recipe.favorites.count %></span>
+  <span class="star-count"><%= recipe.favorites.count %></span>
 <% end %>
